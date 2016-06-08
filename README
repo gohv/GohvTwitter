@@ -1,0 +1,16 @@
+Twitter API Implementation with JAVA:
+
+Tweet class - the actual API
+
+JAVA FX GUI ver0.0
+JAVA Swing GUI ver0.0
+
+TODO:
+
+
+Make the Twitter feed appear in the GUI.
+
+A characters Counter so people know how much characters they have left
+
+Tweak the FX GUI to use FXML and make it more colorfull
+
