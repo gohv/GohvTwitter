@@ -1,75 +1,81 @@
-package GohvTwitter;
-
-import twitter4j.Status;
-import twitter4j.StatusUpdate;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.conf.ConfigurationBuilder;
-
-import java.util.List;
-
-/**
- * build Twitter API - twitter4j
+package GohvTwitter.GUI.GohvTwitter;/**
+ * Created by gohv on 08.06.16.
  */
 
-public class Tweet {
-// Generated from Twitter:
+import GohvTwitter.Tweet;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import twitter4j.TwitterException;
 
-    private final String CONSUMER_KEY = "CRRVcMV2IE4onuZ2l7AT2NJ4b";
-    private final String CONSUMER_SECRET = "fa58YQIetZJ0bGt47zrwH15dne7PEJyxAsdsNGEPLsnZJTiEpN";
-    private final String ACCESS_TOKEN = "2655769404-EZU1CS7xLZGelGYFh1vajZvuJcPogpBC0dRdh2m";
-    private final String ACCESS_TOKEN_SECRET = "epMhSqOvR6IEXG80rHeZBHTcJHi9gRYGO5ZRsNJD3sNsN";
-    private ConfigurationBuilder config = new ConfigurationBuilder();
-    private twitter4j.Twitter twitter;
+import java.io.IOException;
 
-    public Tweet() throws TwitterException {
+public class FXGUI extends Application {
 
-        buildConfig();
+    TextField tweetField = new TextField();
+    Button btn = new Button("Tweet");
+    GridPane grid = new GridPane();
+    Group root = new Group();
+    Text text = new Text("Post to Twitter?");
+    Label label = new Label("Type here:");
+    Tweet tweet = new Tweet();
+
+    public FXGUI() throws TwitterException {
+    }
+
+
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/sample.fxml"));
+
+
+      /* grid.add(label, 0, 0);
+        grid.add(tweetField, 1, 0);
+        //   grid.setGridLinesVisible(true);
+        text.setFont(new Font("DejaVu Serif Bold", 15));
+        grid.add(btn, 1, 1);
+        grid.setHgap(10);
+
+        btn.setOnAction(evt -> {
+            try {
+                tweet.tweetStatus(tweetField.getText());
+            } catch (TwitterException e) {
+               System.err.println("Some Twitter Exception occurred");
+                e.printStackTrace();
+            }
+        });
+        VBox box = new VBox();
+
+        box.getChildren().addAll(text, grid);
+        root.getChildren().add(box);*/
+        primaryStage.setTitle("GohvTwitter");
+        primaryStage.setScene(new Scene(root, 370, 275));
+        primaryStage.show();
+    }
+
+    private void setMessage() throws TwitterException {
+
 
 
     }
 
-    // initial config for my first twitter app:
-    public void buildConfig() throws TwitterException {
-        config.setDebugEnabled(true);
-        config.setOAuthConsumerKey(CONSUMER_KEY);
-        config.setOAuthConsumerSecret(CONSUMER_SECRET);
-        config.setOAuthAccessToken(ACCESS_TOKEN);
-        config.setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET);
 
-        // pass the config:
-        TwitterFactory twitterFactory = new TwitterFactory(config.build());
-        // Returns a instance associated with the configuration bound to this factory.
-        twitter = twitterFactory.getInstance();
-        // creating a list of Statuses:
-
-        List<Status> tweets = twitter.getHomeTimeline();
-        for (Status s : tweets) {
-            System.out.println(s.getUser().getName() + "------>" + s.getText());
-        }
-
-    }
-
-    public void tweetStatus(String message) throws TwitterException {
-        StatusUpdate status = new StatusUpdate(message);
-        Status setStatus = twitter.updateStatus(status);
-    }
-
-    public void getMyStatus() throws TwitterException {
-
-    }
 
     public static void main(String[] args) {
-        Tweet twitter;
-        try {
-            twitter = new Tweet();
 
 
-        } catch (TwitterException e) {
-            e.printStackTrace();
-        }
-
+        launch(args);
 
     }
-
 }

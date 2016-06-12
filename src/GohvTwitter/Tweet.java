@@ -1,12 +1,13 @@
 package GohvTwitter;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class Tweet {
     private final String CONSUMER_SECRET = "fa58YQIetZJ0bGt47zrwH15dne7PEJyxAsdsNGEPLsnZJTiEpN";
     private final String ACCESS_TOKEN = "2655769404-EZU1CS7xLZGelGYFh1vajZvuJcPogpBC0dRdh2m";
     private final String ACCESS_TOKEN_SECRET = "epMhSqOvR6IEXG80rHeZBHTcJHi9gRYGO5ZRsNJD3sNsN";
+
     private ConfigurationBuilder config = new ConfigurationBuilder();
     private twitter4j.Twitter twitter;
 
@@ -48,7 +50,7 @@ public class Tweet {
         Status setStatus = twitter.updateStatus(status);
     }
 
-    public void getFeed() throws TwitterException {
+    public void getFeedPrint() throws TwitterException {
             // creating a list of Statuses:
         // TODO : make it readable by my FX GUI:
         List<Status> tweets = twitter.getHomeTimeline();
@@ -57,16 +59,30 @@ public class Tweet {
         }
     }
 
-    public static void main(String[] args) {
+ public HashMap<String, String> getFeedList() throws TwitterException {
+        List<Status> tweets = twitter.getHomeTimeline();
+     HashMap<String, String> list= new HashMap<>();
+
+     for (Status s : tweets) {
+         String name = s.getUser().getName();
+         String text = s.getText();
+         list.put(name, text);
+
+     }
+    return list;
+
+    }
+
+ /*   public static void main(String[] args) {
         Tweet twitter;
         try {
             twitter = new Tweet();
-
+            System.out.println(twitter.getFeedList());
         } catch (TwitterException e) {
             e.printStackTrace();
         }
 
 
-    }
+    }*/
 
 }
